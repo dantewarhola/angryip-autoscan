@@ -22,7 +22,6 @@ ip_scanner/
 ├── sort_ports.py               # Port sorter with descriptions
 ├── ipscan_results.csv          # Live scan export (auto-created)
 ├── sorted_by_ports.csv         # Final port summary (auto-created)
-├── requirements.txt            # Python dependencies
 └── README.md                   # You're reading this!
 ```
 
