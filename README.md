@@ -1,124 +1,126 @@
 # ⚡ Angry IP Live Tracker & Port Sorter
 
-A Python-powered automation tool that monitors live IP scan results from Angry IP Scanner, exports data automatically, and generates a detailed, sorted report of open ports with common vulnerabilities.
+A Python‑powered automation tool that monitors live IP scan results from Angry IP Scanner, exports data automatically every 30 seconds, and generates a detailed, sorted report of open ports with common vulnerability annotations.
 
 ---
 
-## 🚀 Features
+## 🚀 Project Highlights
 
-- Automatically triggers Angry IP export every 30 seconds
-- Live IP detection and console status updates
-- Port sorting into `sorted_by_ports.csv`
-- Includes descriptions and known vulnerabilities for common ports
-- 100% automated — just set up once and let it run
+- ✅ Automatically triggers Angry IP Scanner export on a 30‑second interval  
+- 🌐 Live IP detection with real‑time console status updates  
+- 📑 Automated port sorting into `sorted_by_ports.csv`  
+- 🔍 Includes descriptions and known vulnerabilities for each open port  
+- 🤖 Fully headless once configured—just launch and let it run  
 
 ---
 
-## 📁 Project Structure
+## 🧠 Technologies Used
+
+- **Python 3.9+**  
+- **pyautogui**, **pywin32** for GUI automation  
+- **Angry IP Scanner** for network scanning  
+- **CSV** handling via Python’s built‑in `csv` module  
+- **Windows OS** (automation tested on Windows 10)  
+
+---
+
+## 🗂️ Project Structure
 
 ```
 ip_scanner/
-├── live_scan_tracker.py        # Main tracker script
-├── sort_ports.py               # Port sorter with descriptions
-├── ipscan_results.csv          # Live scan export (auto-created)
-├── sorted_by_ports.csv         # Final port summary (auto-created)
-└── README.md                   # You're reading this!
+├── live_scan_tracker.py        # Main automation & live‑update script
+├── sort_ports.py               # Sorter that enriches ports with vulnerability data
+├── ipscan_results.csv          # Auto‑exported raw scan results
+├── sorted_by_ports.csv         # Final, vulnerability‑annotated output
+└── README.md                   # You are here!
 ```
 
 ---
 
-## 💾 Installation Guide
+## 📦 Getting Started
 
-### 1. ✅ Install Python 3.9+
-Download and install Python from [python.org](https://www.python.org/downloads/).  
-Make sure to check ✅ **"Add Python to PATH"** during installation.
+### 1. Clone the Repository
 
-### 2. ✅ Install Angry IP Scanner
-Download it from [https://angryip.org/download/](https://angryip.org/download/)
+```bash
+git clone https://github.com/dantewarhola/ip_scanner.git
+cd ip_scanner
+```
 
-After installation, configure it:
-- Go to **Tools > Preferences > Ports**, add ports like: `21,22,23,80,443,445,3389`
-- Go to **Tools > Preferences > Export**
-  - Format: **CSV**
-  - File path: `ipscan_results.csv` in this project folder
-  - Enable **overwrite existing files**
-
-### 3. ✅ Install Required Python Libraries
-
-Open a terminal or command prompt inside the project folder and run:
+### 2. Install Python Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-#### requirements.txt
-```txt
-pyautogui
-pywin32
-```
+*(`requirements.txt` includes `pyautogui` and `pywin32`)*
+
+### 3. Install & Configure Angry IP Scanner
+
+1. Download from [angryip.org/download](https://angryip.org/download/)  
+2. In **Tools → Preferences → Ports**, add your port list (e.g., `21,22,23,80,443,445,3389`)  
+3. In **Tools → Preferences → Export**:  
+   - **Format:** CSV  
+   - **File path:** `ipscan_results.csv` (in this project folder)  
+   - **Enable:** Overwrite existing file  
 
 ---
 
-## ▶️ How to Run
+## ▶️ Running the Project
 
-### Step 1: Start Angry IP Scanner
-- Set your IP range
-- Click "Start"
-- Leave the Angry IP window **open and in focus**
+### Step 1: Start Angry IP Scanner  
+- Set your target IP range  
+- Click **Start**  
+- Keep the Angry IP window open (or in split‑screen)
 
-### Step 2: Run the Tracker
+### Step 2: Launch the Tracker
 
 ```bash
 python live_scan_tracker.py
 ```
 
-### The script will:
-- Wait 30 seconds
-- Automatically save/export scan results every 30 seconds
-- Print found IPs live in the terminal
-- After 100% scan, it will auto-run `sort_ports.py`
+- The script waits 30 seconds, triggers an export, and prints new IPs/ports as they appear  
+- After the scan completes, it automatically runs `sort_ports.py`
 
-### Step 3: View Your Report
-Open the generated file:
+### Step 3: View Your Report
+
+Open:
 
 ```
 sorted_by_ports.csv
 ```
 
-This contains:
-
-- Open ports
-- IP addresses
-- Hostnames
-- Port descriptions
-- Common vulnerabilities
+– Contains: IP, hostname, open port, description, and common vulnerabilities
 
 ---
 
 ## 🔐 Sample Output (CSV)
 
-| Port | IP           | Hostname      | Description       | Common Vulnerabilities                     |
-|------|--------------|---------------|-------------------|---------------------------------------------|
-| 22   | 192.168.1.5  | raspberrypi   | SSH               | Brute-force, outdated crypto               |
-| 445  | 192.168.1.22 | Workstation   | SMB (File Share)  | EternalBlue, WannaCry, SMBv1 RCE           |
-| 3389 | 192.168.1.8  | Unknown       | RDP               | BlueKeep, weak auth, RCE                   |
+| Port | IP           | Hostname    | Description      | Common Vulnerabilities          |
+|------|--------------|-------------|------------------|---------------------------------|
+| 22   | 192.168.1.5  | raspberrypi | SSH              | Brute‑force, outdated crypto    |
+| 445  | 192.168.1.22 | workstation | SMB (File Share) | EternalBlue, WannaCry (SMBv1 RCE) |
+| 3389 | 192.168.1.8  | unknown     | RDP              | BlueKeep, weak auth, RCE        |
 
 ---
 
 ## 🧠 Notes
 
-- Designed for **Windows OS**
-- Keep Angry IP open during the scan
-- Works best when run alongside Angry IP in split-screen mode
-- Tested with networks using `192.168.x.x` IP ranges
+- Designed and tested on **Windows 10**  
+- Ensure Angry IP remains open for the duration of the scan  
+- Best used in split‑screen alongside your terminal  
+- IP ranges outside `192.168.x.x` may require adjusting scan settings  
 
 ---
 
-## 📬 Questions / Contributions
+## 🧑‍💻 Author
 
-Feel free to submit an issue or pull request if you’d like to:
-- Expand port vulnerability mappings
-- Add headless Nmap integration
-- Add GUI or log file outputs
+**Dante Warhola**  
+University of Pittsburgh — Computer Science  
+Pi Kappa Phi Risk Manager | Cybersecurity Enthusiast  
+[LinkedIn](https://linkedin.com/in/dante-warhola/) | [GitHub](https://github.com/dantewarhola)
 
-Built with ❤️ and caffeine by [Dante Warhola].
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
