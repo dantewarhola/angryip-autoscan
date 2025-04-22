@@ -1,16 +1,16 @@
 # ⚡ Angry IP Live Tracker & Port Sorter
 
-A Python‑powered automation tool that monitors live IP scan results from Angry IP Scanner, exports data automatically every 30 seconds, and generates a detailed, sorted report of open ports with common vulnerability annotations.
+A Python‑powered automation tool that monitors live IP scan results from Angry IP Scanner, exports data automatically, and generates a detailed, sorted report of open ports with common vulnerability annotations.
 
 ---
 
 ## 🚀 Project Highlights
 
-- ✅ Automatically triggers Angry IP Scanner export on a 30‑second interval  
+- ✅ Automatically triggers Angry IP Scanner export on a set interval  
 - 🌐 Live IP detection with real‑time console status updates  
-- 📑 Automated port sorting into `sorted_by_ports.csv`  
+- 📑 Automated port sorting into a final Excel report  
 - 🔍 Includes descriptions and known vulnerabilities for each open port  
-- 🤖 Fully headless once configured—just launch and let it run  
+- 🤖 Fully automated once initiated via batch script  
 
 ---
 
@@ -19,8 +19,8 @@ A Python‑powered automation tool that monitors live IP scan results from Angry
 - **Python 3.9+**  
 - **pyautogui**, **pywin32** for GUI automation  
 - **Angry IP Scanner** for network scanning  
-- **CSV** handling via Python’s built‑in `csv` module  
-- **Windows OS** (automation tested on Windows 10)  
+- **CSV** and **Excel** handling via Python’s built‑in modules and `pandas`  
+- **Windows OS** (tested on Windows 10)  
 
 ---
 
@@ -29,86 +29,78 @@ A Python‑powered automation tool that monitors live IP scan results from Angry
 ```
 ip_scanner/
 ├── live_scan_tracker.py        # Main automation & live‑update script
-├── sort_ports.py               # Sorter that enriches ports with vulnerability data
+├── sort_ports.py               # Sorter that enriches ports with vulnerability data and outputs Excel
 ├── ipscan_results.csv          # Auto‑exported raw scan results
-├── sorted_by_ports.csv         # Final, vulnerability‑annotated output
+├── sorted_by_ports.xlsx        # Final, sorted port report (auto-generated)
+├── ip.bat                      # Batch file to launch the process
 └── README.md                   # You are here!
 ```
 
 ---
 
-## 📦 Getting Started
+## 📦 Installation
 
-### 1. Clone the Repository
+1. **Clone the Repository**
 
-```bash
-git clone https://github.com/dantewarhola/ip_scanner.git
-cd ip_scanner
-```
+   ```bash
+   git clone https://github.com/dantewarhola/ip_scanner.git
+   cd ip_scanner
+   ```
 
-### 2. Install Python Dependencies
+2. **Install Python Dependencies**
 
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-*(`requirements.txt` includes `pyautogui` and `pywin32`)*
+3. **Install Angry IP Scanner**
 
-### 3. Install & Configure Angry IP Scanner
-
-1. Download from [angryip.org/download](https://angryip.org/download/)  
-2. In **Tools → Preferences → Ports**, add your port list (e.g., `21,22,23,80,443,445,3389`)  
-3. In **Tools → Preferences → Export**:  
-   - **Format:** CSV  
-   - **File path:** `ipscan_results.csv` (in this project folder)  
-   - **Enable:** Overwrite existing file  
+   - Download from [angryip.org/download](https://angryip.org/download/)  
+   - In **Tools → Preferences → Ports**, add your port list (e.g., `21,22,23,80,443,445,3389`)  
+   - In **Tools → Preferences → Export**:  
+     - **Format:** CSV  
+     - **File path:** `ipscan_results.csv` (in this project folder)  
+     - **Enable:** Overwrite existing file  
 
 ---
 
-## ▶️ Running the Project
+## ▶️ How to Run
 
-### Step 1: Start Angry IP Scanner  
-- Set your target IP range  
-- Click **Start**  
-- Keep the Angry IP window open (or in split‑screen)
+1. **Launch the Batch Script**
 
-### Step 2: Launch the Tracker
+   Double-click or run:
 
-```bash
-python live_scan_tracker.py
-```
+   ```bash
+   ip.bat
+   ```
 
-- The script waits 30 seconds, triggers an export, and prints new IPs/ports as they appear  
-- After the scan completes, it automatically runs `sort_ports.py`
+2. **Start the Automated Scan**
 
-### Step 3: View Your Report
+   - When prompted, enter **`1`** and press **Enter**  
+   - The script will automatically open Angry IP Scanner and begin scanning your configured IP range
 
-Open:
+3. **Monitor & Save Results**
 
-```
-sorted_by_ports.csv
-```
+   - Let the scan run—results (IP addresses and open ports) will auto-save to `ipscan_results.csv`  
+   - Live status updates will display in the console
 
-– Contains: IP, hostname, open port, description, and common vulnerabilities
+4. **View the Sorted Report**
+
+   - Once the scan completes, the script will run `sort_ports.py`  
+   - A sorted, vulnerability‑annotated Excel report will be generated as:
+     ```
+     sorted_by_ports.xlsx
+     ```
 
 ---
 
-## 🔐 Sample Output (CSV)
+## 🔐 Sample Output
 
 | Port | IP           | Hostname    | Description      | Common Vulnerabilities          |
 |------|--------------|-------------|------------------|---------------------------------|
 | 22   | 192.168.1.5  | raspberrypi | SSH              | Brute‑force, outdated crypto    |
 | 445  | 192.168.1.22 | workstation | SMB (File Share) | EternalBlue, WannaCry (SMBv1 RCE) |
 | 3389 | 192.168.1.8  | unknown     | RDP              | BlueKeep, weak auth, RCE        |
-
----
-
-## 🧠 Notes
-
-- Designed and tested on **Windows 10**  
-- Ensure Angry IP remains open for the duration of the scan  
-- Best used in split‑screen alongside your terminal  
-- IP ranges outside `192.168.x.x` may require adjusting scan settings  
 
 ---
 
